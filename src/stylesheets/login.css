@@ -1,0 +1,117 @@
+:root {
+    --transition-property: all;
+    --transition-duration-to: 300ms;
+    --scale-active: scale(0.94);
+}
+
+.login {
+    /* display: block; */
+    display: flex;
+    /* position: absolute; */
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 10.4em);
+    width: 100%;
+}
+.login .flexbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.6em;
+    max-width: 20em;
+}
+
+.login-panel {
+    border: 2px solid #ddd;
+    background-color: #eee;
+    border-radius: 12px;
+    padding: 1.6em;
+}
+
+.login-title-container {
+    padding-bottom: 1.6em;
+}
+.login-title {
+    text-align: center;
+}
+
+.field-label {
+    display: inline-block;
+    padding-bottom:0.3em;
+    /* font-weight: 600; */
+}
+.field {
+    font-family: 'Yaldevi', sans-serif;
+    font-weight: 600;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 2px solid #ddd;
+    padding-left: 6px;
+    padding-right: 6px;
+    height: 2.4em;
+    width: 100%;
+    box-shadow: #ddd 0 0px 0px;
+    transition-property: var(--transition-property);
+    transition-duration: var(--transition-duration-to);
+}
+.field:hover {
+    box-shadow: #ddd 0 6px 12px;
+}
+
+.login-gap {
+    height: 1em;
+}
+
+.login-button-container {
+    padding-top:0.6em;
+    display: flex;
+    justify-content: center;
+}
+.login-button {
+    font-family: 'Yaldevi', sans-serif;
+    font-size: 1em;
+    width: 5.6em;
+    height: 2.6em;
+    border-radius: 12px;
+    background-color: #532680;
+    background: linear-gradient(135deg, #A64DFF, #532680);
+    color: white;
+    box-shadow: #532680 0 2px 4px;
+    transition-property: var(--transition-property);
+    transition-duration: var(--transition-duration-to);
+    border: 1px solid #532680;
+    cursor: pointer;
+}
+.login-button:hover {
+    box-shadow: #532680 0 6px 12px;
+}
+.login-button:active {
+    box-shadow: #532680 0 0px 0px;
+    transform: var(--scale-active);
+}
+/* .title-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #532680;
+    background: linear-gradient(135deg, #A64DFF, #532680);
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: #532680 0 2px 4px;
+    transition-property: var(--transition-property);
+    transition-duration: var(--transition-duration-to);
+    border: 1px solid #532680;
+}
+.title-signup:hover {
+    box-shadow: #532680 0 6px 12px;
+}
+.title-signup:active {
+    box-shadow: #532680 0 0px 0px;
+    transform: var(--scale-active);
+}
+.title-signup-text{
+    color: white;
+    font-weight: lighter;
+} */
