@@ -1,11 +1,11 @@
 import './App.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { TitleBar } from './components/TitleBar';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Rays</h1>
-      </header>
+      <TitleBar />
     </div>
   );
 }

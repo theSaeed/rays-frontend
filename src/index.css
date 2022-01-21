@@ -1,7 +1,12 @@
+* {
+  margin: 0;
+  text-overflow: ellipsis;
+  /* box-sizing: border-box; */
+}
+
 body {
   margin: 0;
   font-family: 'Yaldevi', sans-serif;
-  box-sizing: border-box;
 }
 
 code {
