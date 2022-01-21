@@ -10,10 +10,10 @@ export const Login = () => {
                         <h2 className='login-title'>Login Panel</h2>
                     </div>
 
-                    <label for='login-field' className='field-label'>Username or Email Address</label>
-                    <input type='text' className='field' id='login-field' name='login-field' autocapitalize='off' autocorrect='off'/>
+                    <label htmlFor='login-field' className='field-label'>Username or Email Address</label>
+                    <input type='text' className='field' id='login-field' name='login-field' autoCapitalize='off' autoCorrect='off'/>
                     <div className='login-gap'></div>
-                    <label for='password-field' className='field-label'>Password</label>
+                    <label htmlFor='password-field' className='field-label'>Password</label>
                     <input type='password' className='field' id='password-field' name='password-field'/>
                     <div className='login-gap'></div>
                     <div className='login-button-container'>
