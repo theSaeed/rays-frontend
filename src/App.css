@@ -4,3 +4,8 @@
   display: block;
   position: relative;
 }
+
+.hidden {
+  width: 0 !important;
+  display: none !important;
+}
