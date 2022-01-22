@@ -118,10 +118,10 @@
     transition-duration: 200ms;
 }
 .title-login:hover {
-    background-color: #ddd;
+    background-color: #eee;
 }
 .title-login:active {
-    background-color: #bbb;
+    background-color: #ddd;
     transform: var(--scale-active);
 }
 .title-login-text{

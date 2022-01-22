@@ -2,7 +2,6 @@ import React from 'react';
 import '../stylesheets/titlebar.css';
 import '../App.css';
 import logo from '../media/logo-no-shadow.png';
-import { Link } from 'react-router-dom';
 
 export const TitleBar = () => {
 
