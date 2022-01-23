@@ -34,7 +34,7 @@ export const Signup = () => {
             passwordField,
         };
 
-        fetch('http://rays-server.herokuapp.com/signup', {
+        fetch('https://rays-server.herokuapp.com/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             mode: 'cors',
