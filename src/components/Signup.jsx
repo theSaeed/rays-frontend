@@ -36,8 +36,7 @@ export const Signup = ({ handleLogin, isLoggedIn }) => {
         };
 
         try{
-            // const res = await axios.post('https://rays-server.herokuapp.com/signup', user);
-            const res = await axios.post('http://localhost:5000/signup', user);
+            const res = await axios.post('https://rays-server.herokuapp.com/signup', user);
             console.log(res);
             if (res.status !== 201) {
                 if (res.data.message)

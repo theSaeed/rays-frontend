@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/login.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Login = ({ handleLogin, isLoggedIn }) => {
 
@@ -11,7 +12,7 @@ export const Login = ({ handleLogin, isLoggedIn }) => {
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage(null);
         setIsPending(true);
@@ -21,34 +22,42 @@ export const Login = ({ handleLogin, isLoggedIn }) => {
             passwordField,
         };
 
-        fetch('https://rays-server.herokuapp.com/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'cors',
-            body: JSON.stringify(user)
-        }).then(res => {
+        try{
+            const res = await axios.post('https://rays-server.herokuapp.com/login', user);
             console.log(res);
-            if(res.status !== 200)
-                throw res.json();
-            return res.json();
-        }).then(res => {
+            if (res.status !== 200) {
+                if (res.data.message)
+                    setMessage(res.data.message);
+                else
+                    setMessage('Something went wrong. Please try again later.');
+                setIsPending(false);
+                return;
+            }
             handleLogin({
-                token: res.token,
-                displayName: res.displayName,
-                email: res.email,
-                userLevel: res.userLevel
+                id: res.data.id,
+                token: res.data.token,
+                displayName: res.data.displayName,
+                email: res.data.email,
+                userLevel: res.data.userLevel
             });
-        }).then(() => {
             navigate('/');
             setIsPending(false);
-        }).catch(err => {
-            if (err.message)
-                setMessage(err.message);
-            else
+        } catch (err) {
+            console.log(err);
+            if (err.response) {
+                setMessage(err.response.data.message);
+            } else {
                 setMessage('Something went wrong. Please try again later.');
+            }
             setIsPending(false);
-        })
+        }
     }
+
+    useEffect(() => {
+        if(isLoggedIn)
+            navigate('/');
+    }, [])
+
 
     return (
         <div className='login'>
@@ -82,6 +91,10 @@ export const Login = ({ handleLogin, isLoggedIn }) => {
                             value={passwordField}
                             onChange={(e) => {setPasswordField(e.target.value)}}
                         />
+                        {message && <>
+                            <div className='login-gap'></div>
+                            <p style={{color: '#f05'}}>{message}</p>
+                        </>}
                         <div className='login-gap'></div>
                         <div className='login-button-container'>
                             <button disabled={isPending} className='login-button'>{isPending? 'Loading...':'Log in'}</button>
