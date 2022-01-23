@@ -25,10 +25,10 @@ export const Login = () => {
                     </div>
 
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor='login-field' className='field-label'>Username or Email Address</label>
+                        <label htmlFor='login-field' className='field-label'>Email Address</label>
                         <input
                             required
-                            type='text'
+                            type='email'
                             className='field'
                             id='login-field'
                             name='login-field'
