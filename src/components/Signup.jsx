@@ -9,21 +9,19 @@ export const Signup = () => {
     const [confirmPasswordField, setConfirmPasswordField] = useState();
     
     const [isPending, setIsPending] = useState(false);
-    const [showMessage, setShowMessage] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState(null);
 
     const Asterisk = () => {
         return <span style={{color: '#f05'}}>*</span>
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowMessage(false);
+        setMessage(null);
         setIsPending(true);
 
         if (passwordField !== confirmPasswordField) {
             setMessage('Repeat the password correctly.');
-            setShowMessage(true);
             setIsPending(false);
             return;
         }
@@ -33,6 +31,25 @@ export const Signup = () => {
             emailField,
             passwordField,
         };
+
+        fetch('http://rays-server.herokuapp.com/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors',
+            body: JSON.stringify(user)
+        }).then(res => {
+            return res.json();
+        }).then(res => {
+            console.log(res);
+            if(res.status !== 201) {
+                setMessage(res.message);
+                setIsPending(false);
+            }
+            return res;
+        }).catch(err => {
+            setMessage('Something went wrong. Please try again later.');
+            setIsPending(false);
+        })
     }
 
     return (
@@ -89,9 +106,9 @@ export const Signup = () => {
                             value={confirmPasswordField}
                             onChange={(e) => setConfirmPasswordField(e.target.value)}
                         />
-                        {showMessage && <>
+                        {message && <>
                             <div className='login-gap'></div>
-                            <p style={{color: '#f05', 'font-weight': '600'}}>{message}</p>
+                            <p style={{color: '#f05', 'font-weight': '100'}}>{message}</p>
                         </>}
                         <div className='login-gap'></div>
                         <div className='login-button-container'>
