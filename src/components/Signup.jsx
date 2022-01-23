@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../stylesheets/login.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
 
@@ -10,6 +11,7 @@ export const Signup = () => {
     
     const [isPending, setIsPending] = useState(false);
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const Asterisk = () => {
         return <span style={{color: '#f05'}}>*</span>
@@ -44,8 +46,9 @@ export const Signup = () => {
             if(res.status !== 201) {
                 setMessage(res.message);
                 setIsPending(false);
+                return;
             }
-            return res;
+            navigate('/');
         }).catch(err => {
             setMessage('Something went wrong. Please try again later.');
             setIsPending(false);
