@@ -4,18 +4,18 @@ import '../App.css';
 import { useLocation, Link } from 'react-router-dom';
 import logo from '../media/logo-no-shadow.png';
 
-export const TitleBar = () => {
+export const TitleBar = ({ isLoggedIn }) => {
 
     const location = useLocation();
 
     const isLoginButtonHidden = () => {
-        if (location.pathname === '/login')
+        if (isLoggedIn || location.pathname === '/login')
             return ' hidden';
         return '';
     }
 
     const isSignupButtonHidden = () => {
-        if (location.pathname === '/signup')
+        if (isLoggedIn || location.pathname === '/signup')
             return ' hidden';
         return '';
     }

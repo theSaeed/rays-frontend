@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/login.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Signup = () => {
+export const Signup = ({ handleLogin, isLoggedIn }) => {
 
     const [displayNameField, setDisplayNameField] = useState();
     const [emailField, setEmailField] = useState();
@@ -40,20 +40,33 @@ export const Signup = () => {
             mode: 'cors',
             body: JSON.stringify(user)
         }).then(res => {
+            console.log(res);
+            if(res.status !== 201)
+                throw res.json();
             return res.json();
         }).then(res => {
-            console.log(res);
-            if(res.status !== 201) {
-                setMessage(res.message);
-                setIsPending(false);
-                return;
-            }
+            handleLogin({
+                token: res.token,
+                displayName: res.displayName,
+                email: res.email,
+                userLevel: res.userLevel
+            });
+        }).then(() => {
             navigate('/');
+            setIsPending(false);
         }).catch(err => {
-            setMessage('Something went wrong. Please try again later.');
+            if (err.message)
+                setMessage(err.message);
+            else
+                setMessage('Something went wrong. Please try again later.');
             setIsPending(false);
         })
     }
+
+    useEffect(() => {
+        if(isLoggedIn)
+            navigate('/');
+    }, [])
 
     return (
         <div className='login'>
