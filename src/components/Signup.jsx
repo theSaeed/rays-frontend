@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/login.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Signup = ({ handleLogin, isLoggedIn }) => {
 
-    const [displayNameField, setDisplayNameField] = useState();
-    const [emailField, setEmailField] = useState();
-    const [passwordField, setPasswordField] = useState();
-    const [confirmPasswordField, setConfirmPasswordField] = useState();
+    const [displayNameField, setDisplayNameField] = useState('');
+    const [emailField, setEmailField] = useState('');
+    const [passwordField, setPasswordField] = useState('');
+    const [confirmPasswordField, setConfirmPasswordField] = useState('');
     
     const [isPending, setIsPending] = useState(false);
     const [message, setMessage] = useState(null);
@@ -34,33 +35,36 @@ export const Signup = ({ handleLogin, isLoggedIn }) => {
             passwordField,
         };
 
-        fetch('https://rays-server.herokuapp.com/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'cors',
-            body: JSON.stringify(user)
-        }).then(res => {
+        try{
+            // const res = await axios.post('https://rays-server.herokuapp.com/signup', user);
+            const res = await axios.post('http://localhost:5000/signup', user);
             console.log(res);
-            if(res.status !== 201)
-                throw res.json();
-            return res.json();
-        }).then(res => {
+            if (res.status !== 201) {
+                if (res.data.message)
+                    setMessage(res.data.message);
+                else
+                    setMessage('Something went wrong. Please try again later.');
+                setIsPending(false);
+                return;
+            }
             handleLogin({
-                token: res.token,
-                displayName: res.displayName,
-                email: res.email,
-                userLevel: res.userLevel
+                id: res.data.id,
+                token: res.data.token,
+                displayName: res.data.displayName,
+                email: res.data.email,
+                userLevel: res.data.userLevel
             });
-        }).then(() => {
             navigate('/');
             setIsPending(false);
-        }).catch(err => {
-            if (err.message)
-                setMessage(err.message);
-            else
+        } catch (err) {
+            console.log(err);
+            if (err.response) {
+                setMessage(err.response.data.message);
+            } else {
                 setMessage('Something went wrong. Please try again later.');
+            }
             setIsPending(false);
-        })
+        }
     }
 
     useEffect(() => {
@@ -124,7 +128,7 @@ export const Signup = ({ handleLogin, isLoggedIn }) => {
                         />
                         {message && <>
                             <div className='login-gap'></div>
-                            <p style={{color: '#f05', 'font-weight': '100'}}>{message}</p>
+                            <p style={{color: '#f05'}}>{message}</p>
                         </>}
                         <div className='login-gap'></div>
                         <div className='login-button-container'>

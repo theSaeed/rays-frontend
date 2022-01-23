@@ -1,19 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/login.css';
+import { useNavigate } from 'react-router-dom';
 
-export const Login = () => {
+export const Login = ({ handleLogin, isLoggedIn }) => {
 
-    const [loginField, setLoginField] = useState();
-    const [passwordField, setPasswordField] = useState();
+    const [loginField, setLoginField] = useState('');
+    const [passwordField, setPasswordField] = useState('');
+
     const [isPending, setIsPending] = useState(false);
+    const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setMessage(null);
         setIsPending(true);
+        
         const user = {
             loginField,
             passwordField,
         };
+
+        fetch('https://rays-server.herokuapp.com/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors',
+            body: JSON.stringify(user)
+        }).then(res => {
+            console.log(res);
+            if(res.status !== 200)
+                throw res.json();
+            return res.json();
+        }).then(res => {
+            handleLogin({
+                token: res.token,
+                displayName: res.displayName,
+                email: res.email,
+                userLevel: res.userLevel
+            });
+        }).then(() => {
+            navigate('/');
+            setIsPending(false);
+        }).catch(err => {
+            if (err.message)
+                setMessage(err.message);
+            else
+                setMessage('Something went wrong. Please try again later.');
+            setIsPending(false);
+        })
     }
 
     return (

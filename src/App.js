@@ -10,6 +10,7 @@ function App() {
 
   // Login states
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [id, setId] = useState();
   const [token, setToken] = useState();
   const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
@@ -17,6 +18,7 @@ function App() {
 
   const handleLogin = (user) => {
     setIsLoggedIn(true);
+    setId(user.id);
     setToken(user.token);
     setDisplayName(user.displayName);
     setEmail(user.email);
