@@ -30,31 +30,28 @@ export const Collection = () => {
                 return;
             }
             setCollection(() => { return (
-                <a className='collection-link'>
-                    <div className='collection-banner collection-banner-static' style={{backgroundImage: `linear-gradient(135deg, ${res.data.colorA}, ${res.data.colorB})`, border: `1px solid ${res.data.colorB}`}}>
-                        <h1>{res.data.name}</h1>
-                        <p>{res.data.description}</p>
-                    </div>
-                </a>
+                <div className='banner'>
+                    <h1 style={{backgroundImage: `linear-gradient(135deg, ${res.data.colorA}, ${res.data.colorB})`}}>{res.data.name}</h1>
+                    <p style={{backgroundImage: `linear-gradient(135deg, ${res.data.colorA}, ${res.data.colorB})`}}>{res.data.description}</p>
+                </div>
             )});
-            // const collections = <>{
-            //     res.data.map((details) => { return (
-            //         <Link id={details._id} to={`/collections/${details._id}`} className='collection-link'>
-            //             <div
-            //                 className='collection-banner'
-            //                 style={{
-            //                     backgroundImage: `linear-gradient(135deg, ${details.colorA}, ${details.colorB})`,
-            //                     border: `1px solid ${details.colorB}`,
-            //                     boxShadow: `${details.colorB} 0 4px 8px`,
-            //                 }}
-            //             >
-            //                 <h1>{details.name}</h1>
-            //                 <p>{details.description}</p>
-            //             </div>
-            //         </Link>
-            //     )})
-            // }</>
-            // setCollections(collections);
+            const polls = <>{
+                res.data.polls.map((poll) => { return (
+                    <button key={poll._id} className='collection-link'>
+                        <div
+                            className='collection-banner'
+                            style={{
+                                backgroundImage: `linear-gradient(135deg, ${poll.colorA}, ${poll.colorB})`,
+                                // border: `1px solid ${poll.colorB}`,
+                                boxShadow: `${poll.colorB} 0 4px 8px`,
+                            }}
+                        >
+                            <h1>{poll.name}</h1>
+                        </div>
+                    </button>
+                )})
+            }</>;
+            setPolls(polls);
             setIsPending(false);
         } catch (err) {
             console.log(err);

@@ -29,12 +29,12 @@ export const Collections = () => {
             }
             const collections = <>{
                 res.data.map((details) => { return (
-                    <Link id={details._id} to={`/collection/${details._id}`} className='collection-link'>
+                    <Link key={details._id} to={`/collection/${details._id}`} className='collection-link'>
                         <div
                             className='collection-banner'
                             style={{
                                 backgroundImage: `linear-gradient(135deg, ${details.colorA}, ${details.colorB})`,
-                                border: `1px solid ${details.colorB}`,
+                                // border: `1px solid ${details.colorB}`,
                                 boxShadow: `${details.colorB} 0 4px 8px`,
                             }}
                         >
@@ -56,8 +56,8 @@ export const Collections = () => {
     return (
         <div className='collections-back'>
             <div className="flexbox-container">
-                <div className='banner' style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)', border: '1px solid #532680'}}>
-                    <h1>Collections</h1>
+                <div className='banner'>
+                    <h1 style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)'}}>Collections</h1>
                 </div>
                 {message && <p style={{color: '#f05'}}>{message}</p>}
                 {isPending && <p>Loading...</p>}
