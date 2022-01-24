@@ -27,7 +27,7 @@ export const Login = () => {
         };
 
         try{
-            const res = await axiosIns.post('https://rays-server.herokuapp.com/login', user);
+            const res = await axiosIns.post('/login', user);
             console.log(res);
             if (res.status !== 200) {
                 if (res.data.message)

@@ -1,80 +1,59 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import '../stylesheets/login.css';
+import React, { useState, useEffect } from 'react';
+import '../stylesheets/collections.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuthState, useAuthDispatch } from '../providers/AuthProvider';
+import { useAuthState } from '../providers/AuthProvider';
 import { axiosIns } from "../utility/axios";
 
-export const Signup = () => {
+export const Collections = () => {
 
-    const [displayNameField, setDisplayNameField] = useState('');
-    const [emailField, setEmailField] = useState('');
-    const [passwordField, setPasswordField] = useState('');
-    const [confirmPasswordField, setConfirmPasswordField] = useState('');
-    
     const auth = useAuthState();
-    const authDispatch = useAuthDispatch();
 
     const [isPending, setIsPending] = useState(false);
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
-    const Asterisk = () => {
-        return <span style={{color: '#f05'}}>*</span>
-    }
+    useEffect( async () => {
+        if(!auth.token)
+            navigate('/login');
 
-    const handleSubmit = useCallback( async (e) => {
-        e.preventDefault();
         setMessage(null);
         setIsPending(true);
 
-        if (passwordField !== confirmPasswordField) {
-            setMessage('Repeat the password correctly.');
-            setIsPending(false);
-            return;
-        }
-        
-        const user = {
-            displayNameField,
-            emailField,
-            passwordField,
-        };
-
         try{
-            const res = await axiosIns.post('/signup', user);
+            const res = await axiosIns.get('/getCollections');
             console.log(res);
-            if (res.status !== 201) {
-                if (res.data.message)
-                    setMessage(res.data.message);
-                else
-                    setMessage('Something went wrong. Please try again later.');
-                setIsPending(false);
-                authDispatch({ type: "fail" });
-                return;
-            }
-            authDispatch({ type: "success", token: res.data.token });
-            navigate('/');
-            setIsPending(false);
+            // if (res.status !== 200) {
+            //     if (res.data.message)
+            //         setMessage(res.data.message);
+            //     else
+            //         setMessage('Something went wrong. Please try again later.');
+            //     setIsPending(false);
+            //     authDispatch({ type: "fail" });
+            //     return;
+            // }
+            // authDispatch({ type: "success", token: res.data.token });
+            // navigate('/');
+            // setIsPending(false);
         } catch (err) {
             console.log(err);
-            if (err.response) {
-                console.log(err.response);
-                setMessage(err.response.data.message);
-            } else {
-                setMessage('Something went wrong. Please try again later.');
-            }
-            authDispatch({ type: "fail" });
+            setMessage('Something went wrong. Please try again later.');
             setIsPending(false);
         }
-    })
-
-    useEffect(() => {
-        if(auth.token)
-            navigate('/');
     }, [])
 
     return (
-        <div className='login'>
-            <div className='flexbox-container'>
+        <div className='collections-back'>
+            <div className="flexbox-container">
+                <div className='banner' style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)'}}>
+                    <h1>Collections</h1>
+                </div>
+                <div className='banner'>
+                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
+                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
+                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
+                </div>
+            </div>
+            {/* <div className='flexbox-container'>
                 <div className='login-panel'>
                     <div className='login-title-container'>
                         <h2 className='login-title'>Signup Panel</h2>
@@ -136,7 +115,7 @@ export const Signup = () => {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
