@@ -1,21 +1,29 @@
 import React from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { useAuthState } from '../providers/AuthProvider';
 import '../stylesheets/titlebar.css';
 import '../App.css';
-import { useLocation, Link } from 'react-router-dom';
 import logo from '../media/logo-no-shadow.png';
 
 export const TitleBar = ({ isLoggedIn }) => {
 
+    const auth = useAuthState();
     const location = useLocation();
 
+    const isLogoutButtonHidden = () => {
+        if (!auth.token)
+            return ' hidden';
+        return '';
+    }
+
     const isLoginButtonHidden = () => {
-        if (isLoggedIn || location.pathname === '/login')
+        if (auth.token || location.pathname === '/login')
             return ' hidden';
         return '';
     }
 
     const isSignupButtonHidden = () => {
-        if (isLoggedIn || location.pathname === '/signup')
+        if (auth.token || location.pathname === '/signup')
             return ' hidden';
         return '';
     }
@@ -26,6 +34,9 @@ export const TitleBar = ({ isLoggedIn }) => {
                 <Link className='title-img-link' to='/'><img className='title-img' src={logo} alt='Logo'/></Link>
                 <div className='title-text-container'>
                     <Link className='title-text-link' to='/'><h3 className='title-text'>Rays</h3></Link>
+                </div>
+                <div className={'title-login-container'+isLogoutButtonHidden()}>
+                    <Link className='title-login' to='/login'><p className='title-login-text'>Log out</p></Link>
                 </div>
                 <div className={'title-login-container'+isLoginButtonHidden()}>
                     <Link className='title-login' to='/login'><p className='title-login-text'>Log in</p></Link>
