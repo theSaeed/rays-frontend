@@ -36,7 +36,7 @@ export const TitleBar = ({ isLoggedIn }) => {
                     <Link className='title-text-link' to='/'><h3 className='title-text'>Rays</h3></Link>
                 </div>
                 <div className={'title-login-container'+isLogoutButtonHidden()}>
-                    <Link className='title-login' to='/login'><p className='title-login-text'>Log out</p></Link>
+                    <Link className='title-login' to='/logout'><p className='title-login-text'>Log out</p></Link>
                 </div>
                 <div className={'title-login-container'+isLoginButtonHidden()}>
                     <Link className='title-login' to='/login'><p className='title-login-text'>Log in</p></Link>

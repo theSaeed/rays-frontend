@@ -20,7 +20,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "logout":
             setHeader(null);
-            localStorage.setItem("token", null);
+            localStorage.removeItem("token");
             return { ...state, token: null };
         case "success":
             setHeader(action.token);
