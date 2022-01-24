@@ -8,6 +8,7 @@ import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Logout } from './components/Logout';
 import { Collections } from './components/Collections';
+import { Collection } from './components/Collection';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <TitleBar />
           <Routes>
             <Route exact path='/' element={<Collections />} />
+            <Route path='/collection/:collectionId' element={<Collection />} />
             <Route path='/login' element={<Login />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/signup' element={<Signup />} />

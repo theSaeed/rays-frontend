@@ -82,6 +82,15 @@
 .collection-banner:active {
     transform: scale(0.94);
 }
+.collection-banner-static {
+    cursor: default;
+}
+.collection-banner-static:hover {
+    transform: scale(1);
+}
+.collection-banner-static:active {
+    transform: scale(1);
+}
 
 .collection-banner h1 {
     text-align: center;
