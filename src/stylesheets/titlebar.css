@@ -1,9 +1,3 @@
-:root {
-    --transition-property: width, height, margin, box-shadow, padding;
-    --transition-duration-to: 300ms;
-    --scale-active: scale(0.94);
-}
-  
 .titlebar {
     display: flex;
     justify-content: center;

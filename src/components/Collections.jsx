@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/collections.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../providers/AuthProvider';
 import { axiosIns } from "../utility/axios";
 
@@ -11,6 +11,7 @@ export const Collections = () => {
     const [isPending, setIsPending] = useState(false);
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
+    const [collections, setCollections] = useState();
 
     useEffect( async () => {
         if(!auth.token)
@@ -21,19 +22,30 @@ export const Collections = () => {
 
         try{
             const res = await axiosIns.get('/getCollections');
-            console.log(res);
-            // if (res.status !== 200) {
-            //     if (res.data.message)
-            //         setMessage(res.data.message);
-            //     else
-            //         setMessage('Something went wrong. Please try again later.');
-            //     setIsPending(false);
-            //     authDispatch({ type: "fail" });
-            //     return;
-            // }
-            // authDispatch({ type: "success", token: res.data.token });
-            // navigate('/');
-            // setIsPending(false);
+            if (res.status !== 200) {
+                setMessage('Something went wrong. Please try again later.');
+                setIsPending(false);
+                return;
+            }
+            const collections = <>{
+                res.data.map((details) => { return(
+                    <Link id={details._id} to={`/collections/${details._id}`} className='collection-link'>
+                        <div
+                            className='collection-banner'
+                            style={{
+                                backgroundImage: `linear-gradient(135deg, ${details.colorA}, ${details.colorB})`,
+                                border: `1px solid ${details.colorB}`,
+                                boxShadow: `${details.colorB} 0 2px 4px`,
+                            }}
+                        >
+                            <h1>{details.name}</h1>
+                            <p>{details.description}</p>
+                        </div>
+                    </Link>
+                )})
+            }</>
+            setCollections(collections);
+            setIsPending(false);
         } catch (err) {
             console.log(err);
             setMessage('Something went wrong. Please try again later.');
@@ -44,14 +56,12 @@ export const Collections = () => {
     return (
         <div className='collections-back'>
             <div className="flexbox-container">
-                <div className='banner' style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)'}}>
+                <div className='banner' style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)', border: '1px solid #532680'}}>
                     <h1>Collections</h1>
                 </div>
-                <div className='banner'>
-                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
-                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
-                    Hollllllllllllllllllllllllllllllllllllllllllllllllly Whaaaaaaaaaaaaaaaaaat
-                </div>
+                {message && <p style={{color: '#f05'}}>{message}</p>}
+                {isPending && <p>Loading...</p>}
+                {collections}
             </div>
             {/* <div className='flexbox-container'>
                 <div className='login-panel'>
