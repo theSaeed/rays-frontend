@@ -1,5 +1,7 @@
 :root {
-  --transition-property: width, height, margin, box-shadow, padding, transform, background-color, color;
+  --transition-property: width, height, margin, box-shadow, padding,
+  transform, background-color, color, opacity, min-height, min-width,
+  max-width, max-height;
   --transition-duration-to: 300ms;
   --scale-active: scale(0.94);
 }

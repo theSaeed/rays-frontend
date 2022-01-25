@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/collections.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthState } from '../providers/AuthProvider';
 import { axiosIns } from "../utility/axios";
+import { Poll } from './Poll';
 
 export const Collection = () => {
 
@@ -14,6 +15,15 @@ export const Collection = () => {
     const navigate = useNavigate();
     const [collection, setCollection] = useState();
     const [polls, setPolls] = useState();
+
+    const [pollFullScreen, setPollFullScreen] = useState();
+
+    const showPoll = (poll) => {
+        setPollFullScreen(<Poll poll={poll} hidePoll={hidePoll} />);
+    }
+    const hidePoll = () => {
+        setPollFullScreen(null);
+    }
 
     useEffect( async () => {
         if(!auth.token)
@@ -37,7 +47,7 @@ export const Collection = () => {
             )});
             const polls = <>{
                 res.data.polls.map((poll) => { return (
-                    <button key={poll._id} className='collection-link'>
+                    <button key={poll._id} className='collection-link' onClick={(e) => {showPoll(poll)}}>
                         <div
                             className='collection-banner'
                             style={{
@@ -65,11 +75,11 @@ export const Collection = () => {
             <div className="flexbox-container">
                 {collection}
                 {polls}
-                {/* <div className='banner' style={{backgroundImage: 'linear-gradient(135deg, #A64DFF, #532680)', border: '1px solid #532680'}}>
-                    <h1>Collections</h1>
-                </div> */}
                 {message && <p style={{color: '#f05'}}>{message}</p>}
                 {isPending && <p>Loading...</p>}
+
+                {pollFullScreen && <div className='dim-background' onClick={hidePoll}></div>}
+                {pollFullScreen}
             </div>
         </div>
     );

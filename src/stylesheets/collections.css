@@ -85,6 +85,7 @@
     margin: 0;
     padding: 0;
     margin-bottom: 1.6em;
+    cursor: pointer;
 }
 
 .collection-banner {
@@ -131,3 +132,122 @@
 
 /* ############################ */
 
+.dim-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.poll-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.poll-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.poll-panel {
+    margin: 1em;
+    max-width: 20em;
+    width: 100%;
+    background-color: black;
+    border-radius: 12px;
+    color: white;
+    padding: 1.6em;
+    pointer-events: initial;
+}
+
+.poll-close {
+    border: none;
+    position: relative;
+    cursor: pointer;
+    width: 1.5em;
+    left: calc(100% - 1.5em);
+    background: none;
+    color: white;
+    font-weight: 200;
+    font-size: 1.5em;
+    transition: var(--transition-property);
+    transition-duration: var(--transition-duration-to);
+}
+.poll-close:active {
+    transform: scale(0.75);
+}
+
+.poll-panel h3 {
+    cursor: default;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 3em;
+    margin-bottom: 1.6rem;
+}
+.poll-message {
+    margin-bottom: 1em;
+    text-align: center;
+    cursor: default;
+}
+
+.choice-button {
+    cursor: pointer;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    font-family: 'Yaldevi', sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    color: white;
+    width: 100%;
+    height: 3.4rem;
+    border-radius: 12px;
+    background: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all;
+    transition-duration: var(--transition-duration-to);
+}
+.choice-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.4);
+}
+.choice-button:active {
+    transform: scale(0.96);
+}
+
+.choice-button p {
+    display: inline;
+}
+
+.choice-button-disabled {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    font-family: 'Yaldevi', sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    color: white;
+    width: 100%;
+    height: 1.6rem;
+    border-radius: 12px;
+    background: none;
+    border: none;
+    transition: all;
+}
+
+.choice-button-disabled p {
+    display: inline;
+}
