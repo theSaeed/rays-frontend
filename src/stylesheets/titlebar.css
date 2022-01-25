@@ -9,7 +9,7 @@
     width: 100%;
     max-width: 1080px;
     padding: 1em 2em 1em 2em;
-    gap: 1em;
+    /* gap: 1em; */
 }
   
 .title-img-link {
@@ -17,6 +17,7 @@
     transition-duration: var(--transition-duration-to);
     width: 0em;
     overflow: hidden;
+    margin-right: 0em;
 }
 .title-img-link:active {
     transform: var(--scale-active);
@@ -28,12 +29,14 @@
     .title-img-link {
         width: 2.8em;
         display: initial;
+        margin-right: 1em;
     }
 }
   
 .title-text-container {
     display: flex;
     flex-grow: 1;
+    margin-right: 1em;
 }
 .title-text-link {
     text-decoration: none;
@@ -64,6 +67,7 @@
     align-items: center;
     width: 5.6em;
     height: 2.6em;
+    margin-left: 1em;
 }
 .title-signup {
     display: flex;
@@ -98,6 +102,7 @@
     align-items: center;
     width: 4.8em;
     height: 2.6em;
+    margin-left: 1em;
 }
 .title-login {
     display: flex;

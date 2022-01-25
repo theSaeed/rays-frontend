@@ -16,6 +16,13 @@ export const TitleBar = ({ isLoggedIn }) => {
         return '';
     }
 
+    const isCreateButtonHidden = () => {
+        console.log(auth.userLevel);
+        if (!auth.token || auth.userLevel != 'admin')
+            return ' hidden';
+        return '';
+    }
+
     const isLoginButtonHidden = () => {
         if (auth.token || location.pathname === '/login')
             return ' hidden';
@@ -34,6 +41,9 @@ export const TitleBar = ({ isLoggedIn }) => {
                 <Link className='title-img-link' to='/'><img className='title-img' src={logo} alt='Logo'/></Link>
                 <div className='title-text-container'>
                     <Link className='title-text-link' to='/'><h3 className='title-text'>Rays</h3></Link>
+                </div>
+                <div className={'title-signup-container'+isCreateButtonHidden()}>
+                    <Link className='title-signup' to='/create'><p className='title-signup-text'>Create</p></Link>
                 </div>
                 <div className={'title-login-container'+isLogoutButtonHidden()}>
                     <Link className='title-login' to='/logout'><p className='title-login-text'>Log out</p></Link>

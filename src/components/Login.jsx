@@ -38,7 +38,7 @@ export const Login = () => {
                 authDispatch({ type: "fail" });
                 return;
             }
-            authDispatch({ type: "success", token: res.data.token });
+            authDispatch({ type: "success", token: res.data.token, userLevel: res.data.userLevel });
             navigate('/');
             setIsPending(false);
         } catch (err) {

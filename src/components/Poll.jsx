@@ -8,7 +8,7 @@ export const Poll = ({ poll, hidePoll }) => {
     const [isPending, setIsPending] = useState(true);
     const [message, setMessage] = useState(null);
 
-    useEffect( async () => {
+    const fetchPoll = async () => {
         setMessage(null);
         setIsPending(true);
 
@@ -23,7 +23,7 @@ export const Poll = ({ poll, hidePoll }) => {
                 setMessage('Vote now!');
                 const choices = <>{
                     res.data.choices.map((choice) => { return (
-                        <button key={poll._id} className='choice-button' onClick={(e) => {}}>
+                        <button key={poll._id} className='choice-button' onClick={(e) => {sendVote(choice._id)}}>
                             <p style={{float: 'left'}}>{choice.name}</p>
                             <p style={{float: 'right'}}>{choice.voteCount}</p>
                         </button>
@@ -47,6 +47,18 @@ export const Poll = ({ poll, hidePoll }) => {
             setMessage('Something went wrong. Please try again later.');
             setIsPending(false);
         }
+    }
+
+    const sendVote = async (choiceId) => {
+        setMessage('Sending your vote');
+        setChoices();
+
+        await axiosIns.post('/sendVote', {pollId: poll._id, choiceId});
+        fetchPoll();
+    }
+
+    useEffect(() => {
+        fetchPoll();
     }, [])
 
     return (
