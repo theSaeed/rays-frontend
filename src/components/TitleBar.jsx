@@ -18,7 +18,7 @@ export const TitleBar = ({ isLoggedIn }) => {
 
     const isCreateButtonHidden = () => {
         console.log(auth.userLevel);
-        if (!auth.token || auth.userLevel != 'admin')
+        if (!auth.token || auth.userLevel !== 'admin' || location.pathname === '/create')
             return ' hidden';
         return '';
     }

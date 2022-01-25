@@ -9,6 +9,7 @@ import { Signup } from './components/Signup';
 import { Logout } from './components/Logout';
 import { Collections } from './components/Collections';
 import { Collection } from './components/Collection';
+import { Create } from './components/Create';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/create' element={<Create />} />
           </Routes>
           <Footer />
         </BrowserRouter>

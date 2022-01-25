@@ -12,7 +12,8 @@
     justify-content: center;
     align-items: center;
     padding: 1.6em;
-    max-width: 20em;
+    max-width: calc(100%, 20em);
+    width: 20em;
 }
 
 .login-panel {
@@ -22,6 +23,7 @@
     background-color: #f7f7f7;
     border-radius: 12px;
     padding: 1.6em;
+    width: 100%;
 }
 
 .login-title-container {
@@ -32,8 +34,10 @@
 }
 
 .field-label {
-    display: inline-block;
+    /* display: inline-block; */
+    display: block;
     padding-bottom:0.3em;
+    /* width: 100%; */
     /* font-weight: 600; */
 }
 .field {
@@ -47,7 +51,7 @@
     height: 2.4em;
     width: 100%;
     box-shadow: #e7e7e7 0 0px 0px;
-    transition-property: var(--transition-property);
+    transition-property: box-shadow;
     transition-duration: var(--transition-duration-to);
 }
 .field:hover {
@@ -91,4 +95,15 @@
     box-shadow: #532680 0 0px 0px;
     opacity: 0.7;
     cursor: auto;
+}
+
+#collection .flexbox-container {
+    max-width: 100%;
+    width: initial;
+}
+
+#collection-field {
+    width: 40em;
+    height: 25em;
+    max-width: 100%;
 }
